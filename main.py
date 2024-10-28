@@ -11,20 +11,23 @@ from screens.match_induk_anak_game import MatchIndukAnakGame
 from screens.LevelScreen_tebak_gambar import LevelScreenTebakGambar
 from screens.LevelScreen_anak_induk import LevelScreenAnakInduk
 
+
 class TebakGambarApp(App):
 
     def build(self):
-        Window.size = (360, 640)
+        Window.size = (720, 1544)
         self.sm = ScreenManager(transition=FadeTransition())
 
-        splash_screen = SplashScreen(name='splash')
-        main_menu = homeScreen(name='main_menu')
-        menu_game_screen = menuGame(name='menu_game')
-        mengenal_hewan_game = MengenalHewanGame(name='mengenal_hewan_game')
-        level_screen_anak_induk = LevelScreenAnakInduk(name='level_screen_anak_induk')
-        level_screen_tebak_gambar = LevelScreenTebakGambar(name='level_screen_tebak_gambar')
-        match_anak_induk_game = MatchIndukAnakGame(name='match_anak_induk_game')
-        tebak_gambar_game = TebakGambarGame(name='tebak_gambar_game')
+        splash_screen = SplashScreen(name="splash")
+        main_menu = homeScreen(name="main_menu")
+        menu_game_screen = menuGame(name="menu_game")
+        mengenal_hewan_game = MengenalHewanGame(name="mengenal_hewan_game")
+        level_screen_anak_induk = LevelScreenAnakInduk(name="level_screen_anak_induk")
+        level_screen_tebak_gambar = LevelScreenTebakGambar(
+            name="level_screen_tebak_gambar"
+        )
+        match_anak_induk_game = MatchIndukAnakGame(name="match_anak_induk_game")
+        tebak_gambar_game = TebakGambarGame(name="tebak_gambar_game")
 
         self.sm.add_widget(splash_screen)
         self.sm.add_widget(main_menu)
@@ -35,29 +38,29 @@ class TebakGambarApp(App):
         self.sm.add_widget(match_anak_induk_game)
         self.sm.add_widget(tebak_gambar_game)
 
-        self.sm.current = 'splash'
+        self.sm.current = "splash"
 
-        self.button_sound = SoundLoader.load('assets/music/soundButton/soundButton.MP3')
-        self.sfx_sound = SoundLoader.load('assets/music/sfx.mp3')  
+        self.button_sound = SoundLoader.load("assets/music/soundButton/soundButton.MP3")
+        self.sfx_sound = SoundLoader.load("assets/music/sfx.mp3")
         if not self.button_sound:
             print("Error: Sound button file not found.")
         if not self.sfx_sound:
             print("Error: SFX sound file not found.")
 
-        self.music_playing = False  
-        self.music = None  
-        self.sfx_volume = 1.0 
-        self.bgm_volume = 1.0  
-        
+        self.music_playing = False
+        self.music = None
+        self.sfx_volume = 1.0
+        self.bgm_volume = 1.0
+
         return self.sm
 
     def start_background_music(self):
         """Memulai musik latar."""
         if not self.music_playing:
-            self.music = SoundLoader.load('assets/music/kids.mp3')
+            self.music = SoundLoader.load("assets/music/kids.mp3")
             if self.music:
                 self.music.loop = True
-                self.music.volume = self.bgm_volume  
+                self.music.volume = self.bgm_volume
                 self.music.play()
                 self.music_playing = True
                 print("Background music playing.")
@@ -66,7 +69,7 @@ class TebakGambarApp(App):
 
     def stop_music(self):
         """Menghentikan musik latar."""
-        if self.music and self.music.state == 'play':
+        if self.music and self.music.state == "play":
             self.music.stop()
             self.music_playing = False
             print("Background music stopped.")
@@ -74,7 +77,7 @@ class TebakGambarApp(App):
     def play_button_sound(self):
         """Memainkan suara tombol ketika tombol ditekan."""
         if self.button_sound:
-            self.button_sound.volume = self.sfx_volume  
+            self.button_sound.volume = self.sfx_volume
             self.button_sound.play()
         else:
             print("Error: Button sound not available.")
@@ -88,8 +91,9 @@ class TebakGambarApp(App):
     def update_sfx_volume(self, volume):
         """Memperbarui volume SFX."""
         self.sfx_volume = volume
-        if self.sfx_sound:  
+        if self.sfx_sound:
             self.sfx_sound.volume = volume
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     TebakGambarApp().run()
